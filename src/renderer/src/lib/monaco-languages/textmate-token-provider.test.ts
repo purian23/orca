@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { loadNodeOniguruma } from '../syntax-highlighting/oniguruma-test-harness'
 import { loadLeanTextMateGrammar } from './register-lean'
 import { loadNimTextMateGrammar } from './register-nim'
+import { loadQmlTextMateGrammars } from './register-qml'
 import { loadTypstTextMateGrammar } from './register-typst'
 import { createTextMateTokensProvider } from './textmate-token-provider'
 
@@ -33,6 +34,22 @@ describe('createTextMateTokensProvider', () => {
     const after = provider.tokenize(line, closed.endState)
     expect(after.tokens).toEqual(provider.tokenize(line, provider.getInitialState()).tokens)
     expect(after.tokens.length).toBeGreaterThan(1)
+  })
+
+  it('tokenizes QML bindings with the JavaScript grammar it embeds', async () => {
+    const provider = await createTextMateTokensProvider({ loadGrammar: loadQmlTextMateGrammars })
+    let state = provider.getInitialState()
+    const scopesOf = (line: string) => {
+      const result = provider.tokenize(line, state)
+      state = result.endState
+      return result.tokens.map((token) => token.scopes)
+    }
+
+    expect(scopesOf('import QtQuick')).toContain('keyword.control.import.qml')
+    expect(scopesOf('Rectangle {')).toContain('entity.name.type.qml')
+    expect(scopesOf('  color: count > 2 ? "red" : "blue"')).toEqual(
+      expect.arrayContaining(['keyword.operator.relational.js', 'string.quoted.double.js'])
+    )
   })
 
   it.each([

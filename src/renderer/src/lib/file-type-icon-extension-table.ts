@@ -143,6 +143,7 @@ export const FILE_ICON_BY_EXTENSION: Record<string, LucideIcon> = {
   pub: FileKey,
   py: FileCode,
   qmd: FileText,
+  qml: FileCode,
   r: FileCode,
   rar: FileArchive,
   rb: FileCode,

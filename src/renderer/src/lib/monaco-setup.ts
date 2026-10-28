@@ -13,6 +13,7 @@ import { registerJsonlLanguage } from './monaco-languages/register-jsonl'
 import { registerLeanLanguage } from './monaco-languages/register-lean'
 import { registerMarkdownLanguage } from './monaco-languages/register-markdown'
 import { registerNimLanguage } from './monaco-languages/register-nim'
+import { registerQmlLanguage } from './monaco-languages/register-qml'
 import { registerQuartoLanguage } from './monaco-languages/register-quarto'
 import { registerShellMarkdownAliases } from './monaco-languages/register-shell-markdown-aliases'
 import { registerSvelteLanguage } from './monaco-languages/register-svelte'
@@ -75,6 +76,7 @@ runMonacoSetupSteps([
   ['Lean language registration', () => registerLeanLanguage(monaco)],
   ['Typst language registration', () => registerTypstLanguage(monaco)],
   ['Zig language registration', () => registerZigLanguage(monaco)],
+  ['QML language registration', () => registerQmlLanguage(monaco)],
   ['JSONL language registration', () => registerJsonlLanguage(monaco)],
   ['Quarto language registration', () => registerQuartoLanguage(monaco)],
   ['Markdown language registration', () => registerMarkdownLanguage(monaco)],
