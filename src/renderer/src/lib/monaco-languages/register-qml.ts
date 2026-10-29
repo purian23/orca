@@ -41,8 +41,8 @@ function splitBareColonValueRule(qml: LanguageRegistration): LanguageRegistratio
           { ...rule, begin: '(?<=\\w)\\s*:(?=\\s*\\{\\s*$)' },
           {
             begin: '(?<=\\w)\\s*:\\s*$',
-            // Ends after a next-line `{...}` block or the first non-blank continuation line.
-            end: '(?<=})|(?!\\G)(?<=[^\\s{])\\s*$',
+            // Ends after a next-line `{...}` block or a continuation line that doesn't end in an operator, comma, open bracket or `.`.
+            end: '(?<=})|(?!\\G)(?<=[^\\s{(\\[,.?:=!<>&|+\\-*/%^~])\\s*$',
             contentName: 'meta.embedded.line.js',
             patterns: [...(rule.patterns ?? []), { include: 'source.js' }]
           }

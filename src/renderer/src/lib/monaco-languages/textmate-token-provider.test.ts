@@ -52,7 +52,9 @@ describe('createTextMateTokensProvider', () => {
     )
     // A bare `name:` continues on the next line; the object's later bindings must still color.
     scopesOf('  color:')
-    expect(scopesOf('    count > 2 ? "red" : "blue"')).toContain('keyword.operator.ternary.js')
+    expect(scopesOf('    enabled ?')).toContain('keyword.operator.ternary.js')
+    scopesOf('      "red" :')
+    expect(scopesOf('      "blue"')).toContain('string.quoted.double.js')
     expect(scopesOf('  property int size: 1')).toContain('keyword.other.qml')
   })
 
